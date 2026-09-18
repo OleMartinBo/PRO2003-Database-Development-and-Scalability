@@ -1,2 +1,2 @@
 # PRO2003 Database Development and Scalability
-Database Development and Scalability assignments
+This repo contains alll Database Development and Scalability assignments. Each assignment have their own README file for. 
