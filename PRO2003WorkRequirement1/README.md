@@ -13,8 +13,7 @@ Intention: Make setup and workflow easier for guitar players, almost like a "Git
     Song: Money
     Artist: Pink Floyd
     Guitar: Fender Stratocaster
-    Amplifier: Fender
-    Gear: Distortion, Phaser, Delay, Reverb
+    Gear: Amplifier, Distortion, Phaser, Delay, Reverb
     Settings: TBD
 
 ------------------------------------------------
@@ -35,10 +34,10 @@ Intention: Make setup and workflow easier for guitar players, almost like a "Git
 
 # ER Model 
 - Entities:
-    1. User table 
+    1. Users table 
     - 1.1 Attributes: user_id, name, email, 
     - 1.2 Keys:user_id(PK)
-    - 1.3 Data types: user_id (int), name (text), email (VARCHAR(100)) 
+    - 1.3 Data types: user_id (int), name (text), email (VARCHAR(255)) 
 
     2. User profile table
     - 2.1 Attributes: user_id, bio,   
@@ -53,12 +52,12 @@ Intention: Make setup and workflow easier for guitar players, almost like a "Git
     4. Guitar table
     - 4.1 Attributes: guitar_id, guitar_type, brand, nr_of_strings, model,  
     - 4.2 Keys: guitar_id (PK)
-    - 4.3 Data type: guitar_id (int), guitar_type (text), brand (text), nr_of_strings (int), model (text),  
+    - 4.3 Data type: guitar_id (int), guitar_type (VARCHAR(50)), brand (VARCHAR(50)), nr_of_strings (int), model (VARCHAR(50)),  
 
     5. Gear table
     - 5.1 Attributes:gear_id, gear_type, brand, model
     - 5.2 Keys: gear_id (PK)
-    - 5.3 Data type: gear_id (int), gear_type (text), brand (text), model (text)
+    - 5.3 Data type: gear_id (int), gear_type (VARCHAR(50)), brand (VARCHAR(50)), model (VARCHAR(50))
 
     6. RigGear table
     - 6.1 Attributes:rigGear_id, gear_id, rig_id
