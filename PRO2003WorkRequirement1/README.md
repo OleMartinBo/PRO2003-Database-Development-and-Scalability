@@ -30,41 +30,47 @@ Intention: Make setup and workflow easier for guitar players, almost like a "Git
 # Main issues in V1
 1. Gear, guitars, and amplifiers have different settings.  
 2. How the order of gear in the guitar rig chain should be stored. 
+3. Settings have different values such as: 1 | 1,0 | 70%
 ------------------------------------------------
 
 # ER Model 
 - Entities:
     1. User table 
-    1.1 Attributes: user_id, name, email, 
-    1.2 Keys:user_id(PK)
-    1.3 Data types: user_id (int), name (text), email (VARCHAR(100)) 
+    - 1.1 Attributes: user_id, name, email, 
+    - 1.2 Keys:user_id(PK)
+    - 1.3 Data types: user_id (int), name (text), email (VARCHAR(100)) 
 
     2. User profile table
-    2.1 Attributes: user_id, bio, profile_image,  
-    2.2 Keys: user_id (PF,FK)
+    - 2.1 Attributes: user_id, bio,   
+    - 2.2 Keys: user_id (PF,FK)
+    - 2.3 Data types: user_id (int), bio (VARCHAR(100))
 
     3. Rig table 
-    3.1 Attributes: rig_id, rig_name, song_name, artist_name, rig_is_public 
-    3.2 Keys:
+    - 3.1 Attributes: rig_id, user_id, guitar_id, rig_name, song_name, artist_name, rig_is_public 
+    - 3.2 Keys: rig_id(PK), user_id(FK), guitar_id (FK)
+    - 3.3 Data types:rig_id(int), user_id(int), guitar_id(int), rig_name (VARCHAR(100)), song_name (VARCHAR(100)), artist_name (VARCHAR(100)), rig_is_public(boolean) 
 
     4. Guitar table
-    4.1 Attributes: guitar_id, guitar_type, brand, nr_of_strings, model,  
-    4.2 Keys:
+    - 4.1 Attributes: guitar_id, guitar_type, brand, nr_of_strings, model,  
+    - 4.2 Keys: guitar_id (PK)
+    - 4.3 Data type: guitar_id (int), guitar_type (text), brand (text), nr_of_strings (int), model (text),  
 
     5. Gear table
-    5.1 Attributes:gear_id, gear_type, brand, model
-    5.2 Keys:
+    - 5.1 Attributes:gear_id, gear_type, brand, model
+    - 5.2 Keys: gear_id (PK)
+    - 5.3 Data type: gear_id (int), gear_type (text), brand (text), model (text)
 
     6. RigGear table
-    6.1 Attributes:
-    6.2 Keys:
+    - 6.1 Attributes:rigGear_id, gear_id, rig_id
+    - 6.2 Keys: rigGear_id (PK), gear_id (FK), rig_id (FK),  
+    - 6.3 Data type:rigGear_id (int), gear_id (int), rig_id (int)
      
 - Relationships:
-    User 1---1 user_profile
-    Guitar 1--M RigGear 
-    Gear 1--M RigGear
-
-
+    - User 1---1 user_profile
+    - Rig 1--M RigGear 
+    - Gear 1--M RigGear
+    - Guitar 1 -- M Rig
+    - User 1 -- M Rig
 ------------------------------------------------ 
 
 # Approach for the assignment: 
