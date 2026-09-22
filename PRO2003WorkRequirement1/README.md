@@ -8,13 +8,13 @@ Intention: Make setup and workflow easier for guitar players, almost like a "Git
 
     The user can get different rigs for that song. For example:
 
-    Rig: Electric Guitar - Money
-    Rig author: Ole
-    Song: Money
-    Artist: Pink Floyd
-    Guitar: Fender Stratocaster
-    Gear: Amplifier, Distortion, Phaser, Delay, Reverb
-    Settings: TBD
+    - Rig: Electric Guitar - Money
+    - Rig author: Ole
+    - Song: Money
+    - Artist: Pink Floyd
+    - Guitar: Fender Stratocaster
+    - Gear: Amplifier, Distortion, Phaser, Delay, Reverb
+    - Settings: TBD
 
 ------------------------------------------------
 # Main design choices and features in V1
@@ -22,54 +22,55 @@ Intention: Make setup and workflow easier for guitar players, almost like a "Git
 2. An artist can have multiple rigs for different songs or for the same song.
 3. Users can make as many rigs as they want. 
 4. Different users can make different rigs for the same song.
-5. A rig can include multiple pieces of gear.
+5. A rig can include multiple pieces of gear, but each gear have to be  unique for one rig.
 
 ------------------------------------------------ 
 
 # Main issues in V1
 1. Gear, guitars, and amplifiers have different settings.  
-2. How the order of gear in the guitar rig chain should be stored. 
+2. How the order of gear in the guitar rig chain should be stored.
+- Trying chain_order to  keep track of the rig chain.  
 3. Settings have different values such as: 1 | 1,0 | 70%
 ------------------------------------------------
 
 # ER Model 
 - Entities:
-    1. Users table 
+    1. users table 
     - 1.1 Attributes: user_id, name, email, 
     - 1.2 Keys:user_id(PK)
     - 1.3 Data types: user_id (int), name (text), email (VARCHAR(255)) 
 
-    2. User profile table
+    2. user_profile table
     - 2.1 Attributes: user_id, bio,   
     - 2.2 Keys: user_id (PF,FK)
     - 2.3 Data types: user_id (int), bio (VARCHAR(100))
 
-    3. Rig table 
+    3. rig table 
     - 3.1 Attributes: rig_id, user_id, guitar_id, rig_name, song_name, artist_name, rig_is_public 
     - 3.2 Keys: rig_id(PK), user_id(FK), guitar_id (FK)
     - 3.3 Data types:rig_id(int), user_id(int), guitar_id(int), rig_name (VARCHAR(100)), song_name (VARCHAR(100)), artist_name (VARCHAR(100)), rig_is_public(boolean) 
 
-    4. Guitar table
-    - 4.1 Attributes: guitar_id, guitar_type, brand, nr_of_strings, model,  
+    4. guitar table
+    - 4.1 Attributes: guitar_id, guitar_type, guitar_brand, nr_of_strings, guitar_model,  
     - 4.2 Keys: guitar_id (PK)
-    - 4.3 Data type: guitar_id (int), guitar_type (VARCHAR(50)), brand (VARCHAR(50)), nr_of_strings (int), model (VARCHAR(50)),  
+    - 4.3 Data type: guitar_id (int), guitar_type (VARCHAR(50)), guitar_brand (VARCHAR(50)), nr_of_strings (int), guitar_model (VARCHAR(50)),  
 
-    5. Gear table
-    - 5.1 Attributes:gear_id, gear_type, brand, model
+    5. gear table
+    - 5.1 Attributes:gear_id, gear_type, gear_brand, gear_model
     - 5.2 Keys: gear_id (PK)
-    - 5.3 Data type: gear_id (int), gear_type (VARCHAR(50)), brand (VARCHAR(50)), model (VARCHAR(50))
+    - 5.3 Data type: gear_id (int), gear_type (VARCHAR(50)), gear_brand (VARCHAR(50)), gear_model (VARCHAR(50))
 
-    6. RigGear table
-    - 6.1 Attributes:rigGear_id, gear_id, rig_id
-    - 6.2 Keys: rigGear_id (PK), gear_id (FK), rig_id (FK),  
-    - 6.3 Data type:rigGear_id (int), gear_id (int), rig_id (int)
+    6. rig_gear table
+    - 6.1 Attributes: gear_id, rig_id, chain_order
+    - 6.2 Keys: gear_id (FK), rig_id (FK),  
+    - 6.3 Data type: gear_id (int), rig_id (int), chain_order
      
 - Relationships:
-    - User 1---1 user_profile
-    - Rig 1--M RigGear 
-    - Gear 1--M RigGear
-    - Guitar 1 -- M Rig
-    - User 1 -- M Rig
+    - users 1---1 user_profile
+    - rig 1--M rig_gear 
+    - gear 1--M rig_gear
+    - guitar 1 -- M rig
+    - users 1 -- M rig
 ------------------------------------------------ 
 
 # Approach for the assignment: 
@@ -95,3 +96,9 @@ Intention: Make setup and workflow easier for guitar players, almost like a "Git
 - The .erd.json file does not include the image of the ERD.
 - The final image file, erd.png, is in the ERD folder.
 - tables.sql contains the DDL statements. 
+
+
+# Sources
+https://www.w3schools.com/postgresql/postgresql_create_table.php 
+https://www.pgtutorial.com/postgresql-tutorial/postgresql-primary-key/
+https://www.pgtutorial.com/postgresql-tutorial/postgresql-foreign-key/ 
