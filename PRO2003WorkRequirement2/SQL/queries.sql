@@ -2,7 +2,7 @@
 INSERT INTO section [Working, no issues]
 */
 
-/*INSERT INTO user to add an user, gets id automatic */
+--INSERT INTO user to add an user, gets id automatic--
 INSERT INTO users (user_id, name, email) 
 VALUES
 (DEFAULT,'Ola Nordmann', 'OlaNordman@mail.com'),
@@ -10,7 +10,7 @@ VALUES
 (DEFAULT,'David', 'david@example.com'),
 (DEFAULT,'Kurt', 'kurt@example.com');
 
-/*INSERT INTO to add user bio for the user with id "1"*/
+--INSERT INTO to add user bio for the user with id "1"--
 INSERT INTO user_profile (user_id, bio) 
 VALUES
 (1, 'My name is Ola Nordmann.'),
@@ -18,7 +18,7 @@ VALUES
 (3, 'Pink Floyd fan and guitar enthusiast'),
 (4, 'Grunge and alternative rock');
 
-/*INSERT INTO to guitar to add guitar for the rig*/
+--INSERT INTO to guitar to add guitar for the rig--
 INSERT INTO guitar (guitar_id, guitar_type, guitar_brand, guitar_model, nr_of_strings ) 
 VALUES
 (DEFAULT,'Electric Guitar', 'Fender', 'Stratocaster',6),
@@ -28,7 +28,7 @@ VALUES
 (DEFAULT,'Electric Guitar', 'ESP', 'Iron Cross', 6),
 (DEFAULT,'Electric Guitar', 'Fender', 'Telecaster', 6);
 
-/*INSERT INTO to gear to add gear for used in the rig*/
+--INSERT INTO to gear to add gear for used in the rig--
 INSERT INTO gear (gear_id, gear_type, gear_brand, gear_model) 
 VALUES 
 (DEFAULT, 'Phaser','MXR', 'Phase 90' ),
@@ -42,7 +42,7 @@ VALUES
 (DEFAULT,'Fuzz', 'Electro-Harmonix', 'Big Muff Pi'),
 (DEFAULT,'Compressor', 'MXR', 'Dyna Comp');
 
-/*INSERT INTO to rig to add information about the rig*/
+--INSERT INTO to rig to add information about the rig--
 INSERT INTO rig (rig_id, user_id, guitar_id, rig_name, artist_name,song_name, rig_is_public) 
 VALUES
 (DEFAULT, 1, 1,'Money rig','Pink Floyd','Money', TRUE ),
@@ -59,7 +59,6 @@ VALUES
 /*INSERT INTO to rig_gear to add order of the gear in the rig*/
 INSERT INTO rig_gear (rig_id, gear_id, chain_order)
 VALUES
-(1, 1, 1);
 (1, 1, 1),
 (1, 2, 2),
 (1, 3, 3),
@@ -96,6 +95,10 @@ WHERE user_id = 1;
 SELECT queries section
 */
 
+--Selects all rig that are not public and giving it aliase 
+SELECT COUNT(*) AS 'Private rigs'
+FROM rig
+WHERE rig_is_public = 'FALSE'
 
 /*
 Aggregate functions section
