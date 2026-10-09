@@ -5,7 +5,7 @@ INSERT INTO section [Working, no issues]
 --INSERT INTO user to add an user, gets id automatic--
 INSERT INTO users (user_id, name, email) 
 VALUES
-(DEFAULT,'Ola Nordmann', 'OlaNordman@mail.com'),
+(DEFAULT,'Ola Nordmann', 'OlaNordman@example.com'),
 (DEFAULT,'James', 'james@example.com'),
 (DEFAULT,'David', 'david@example.com'),
 (DEFAULT,'Kurt', 'kurt@example.com');
@@ -43,7 +43,7 @@ VALUES
 (DEFAULT,'Compressor', 'MXR', 'Dyna Comp');
 
 --INSERT INTO to rig to add information about the rig--
-INSERT INTO rig (rig_id, user_id, guitar_id, rig_name, artist_name,song_name, rig_is_public) 
+INSERT INTO rig (rig_id, user_id, guitar_id, rig_name, artist_name, song_name, rig_is_public) 
 VALUES
 (DEFAULT, 1, 1,'Money rig','Pink Floyd','Money', TRUE ),
 (DEFAULT, 1, 1, 'Comfortably Numb Solo', 'Pink Floyd', 'Comfortably Numb', TRUE),
@@ -81,9 +81,9 @@ VALUES
 /*
 UPDATE section [Working, no issues]
 */
-/*UPDATE a user bio where user id is 1*/
+-- UPDATE a user bio where user id is 1--
 UPDATE user_profile
-SET bio = 'My name is Ola Nordmann, I like to play the guitar'
+SET bio = 'My name is Ola Nordmann, (27y/o) and I like to play the guitar.'
 WHERE user_id = 1;
 
 
@@ -92,21 +92,55 @@ WHERE user_id = 1;
 */
 
 /*
-SELECT queries section
+SELECT queries section [3/8]
 */
 
---Selects all rig that are not public and giving it aliase 
-SELECT COUNT(*) AS 'Private rigs'
-FROM rig
-WHERE rig_is_public = 'FALSE'
+-- SELECTS all from guitars
+SELECT * 
+FROM guitar
+WHERE guitar_brand = 'Gibson'
+
+
+--Find the average use of gears in a rig
+
+-
+/*
+1. SELECT the rig name,gear type, chain order
+2. JOINS rig and gear on rig_gear
+3. WHERE for the artists name and a wanted  song
+4. ORDER BY to get the gear in the right order
+*/
+SELECT 
+rig.rig_name,
+gear.gear_type,
+rig_gear.gear_id, 
+rig_gear.chain_order
+FROM rig_gear
+JOIN rig ON rig_gear.rig_id = rig.rig_id
+JOIN gear ON rig_gear.gear_id = gear.gear_id
+WHERE rig.artist_name = 'Pink Floyd'
+AND rig.song_name ='Money'
+ORDER BY rig_gear.chain_order ASC;
 
 /*
 Aggregate functions section
 */
 
 /*
-GROUP BY with HAVING section
+GROUP BY with HAVING section-->
+1.Selcts artists and count their public rigs. 
+2.Using WHERE to filter out private rigs before grouping. 
+3.Using GROUP BY to group the rigs by artist_name. 
+4.Then HAVING to filter artists with more than one public rig
+5.ORDER BY the results in a descending order.
 */
+SELECT artist_name, COUNT(*) AS "Number of rigs"
+FROM rig
+WHERE rig_is_public = TRUE
+GROUP BY artist_name
+HAVING COUNT(*) > 1
+ORDER BY COUNT(*) DESC;
+
 
 /*
 Queries using JOIN ... ON to combine related tables section
