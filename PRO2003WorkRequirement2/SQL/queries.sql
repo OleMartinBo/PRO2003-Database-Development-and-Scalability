@@ -1,5 +1,5 @@
 /*
-INSERT INTO section
+INSERT INTO section [working, no issues]
 */
 
 /*INSERT INTO user to add an user, gets id automatic */
@@ -29,6 +29,11 @@ VALUES(1, 1, 1);
 /*
 UPDATE section
 */
+/*UPDATE a user bio where user id is 1*/
+UPDATE user_profile
+SET bio = 'My name is Ola Nordmann, I like to play the guitar'
+WHERE user_id = 1;
+
 
 /*
  DELETE FROM section
