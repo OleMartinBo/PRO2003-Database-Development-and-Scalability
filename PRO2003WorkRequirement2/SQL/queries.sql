@@ -73,7 +73,7 @@ VALUES
 --------------------------------------------
 Queries section [Working, no issues] 
 UPDATE and DELETE queries [2/2]
-SELECT queries [3/8]
+SELECT queries [4/8]
 --------------------------------------------
 */
 
@@ -141,10 +141,22 @@ JOIN guitar ON rig.guitar_id  = guitar_id.guitar_id
 WHERE rig.rig_name = 'Money Rig'
 ORDER BY rig_gear.chain_order;
 
-
-
-
-
+/*
+Select all users who have one or more public rigs. 
+Use `WHERE` to filter for those marked as `TRUE`. 
+Then, group the results by username. 
+Use `HAVING` to specify that there must be at least one public rig. 
+Finally, sort the results to place the user with the highest count at the top.
+*/
+SELECT 
+    users.name,
+    COUNT(rig.rig_id) as "Public rigs"
+FROM users
+JOIN rig ON users.user_id = rig.user_id
+WHERE rig.rig_is_public = TRUE
+GROUP BY users.user_id
+HAVING COUNT(rig.rig_id) >= 1
+ORDER BY "Public rigs" DESC ;
 
 
 /*
