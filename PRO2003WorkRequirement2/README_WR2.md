@@ -47,9 +47,28 @@ PRO2003WorkRequirement1/
 
 
 ## Screenshots of query results.
-![query result](/PRO2003WorkRequirement2/Documents/url)
-![query result](/PRO2003WorkRequirement2/Documents/url)
-![query result](/PRO2003WorkRequirement2/Documents/url)
+1. Update before and after. <br>
+![UPDATE](/PRO2003WorkRequirement2/Documents/Before%20update.png)
+![UPDATE result](/PRO2003WorkRequirement2/Documents/update%20after.png)
 
+2. Before and after delete. <br>
+![delete result](/PRO2003WorkRequirement2/Documents/before%20delete.png)
+![delete result](/PRO2003WorkRequirement2/Documents/new%20user%20.png)
+![delete result](/PRO2003WorkRequirement2/Documents/After%20delete.png)
 
-
+3. Q1<br>
+   ![delete result](/PRO2003WorkRequirement2/Documents/After%20delete.png)
+4. Q2<br>
+   ![delete result](/PRO2003WorkRequirement2/Documents/After%20delete.png)
+5. Q3<br>
+   ![delete result](/PRO2003WorkRequirement2/Documents/After%20delete.png)
+6. Q4<br>
+   ![delete result](/PRO2003WorkRequirement2/Documents/After%20delete.png)
+7. Q5<br>
+   ![delete result](/PRO2003WorkRequirement2/Documents/After%20delete.png)
+8. Q6<br>
+   ![delete result](/PRO2003WorkRequirement2/Documents/After%20delete.png)
+9.  Q7<br>
+    ![delete result](/PRO2003WorkRequirement2/Documents/After%20delete.png)
+10. Q8<br>
+    ![delete result](/PRO2003WorkRequirement2/Documents/After%20delete.png)

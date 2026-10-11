@@ -3,7 +3,6 @@
 INSERTS to guitarRig
 ----------------------------------------
 */
-
 INSERT INTO users (user_id, name, email) 
 VALUES
 (DEFAULT,'Ola Nordmann', 'OlaNordman@example.com'),

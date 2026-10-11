@@ -28,7 +28,7 @@ VALUES (DEFAULT,'Test user', 'TestUser@example.com');
 DELETE FROM users
 WHERE email = 'TestUser@example.com';
 
-/*
+/* Q1
 Selects all artists from the rig table,
 Retrieving only distinct (different) values.
 Counts how many rigs each artist has.
@@ -41,7 +41,7 @@ FROM rig
 GROUP BY artist_name
 ORDER by artist_name DESC;
 
-/*
+/* Q2
 Selects all users in the domain and display their biographies. 
 Specify aliases for better column display. 
 Does not show the ID, but sorts user IDs from the first registered to the last.
@@ -53,7 +53,7 @@ FROM users
 JOIN user_profile ON users.user_id = user_profile.user_id
 ORDER BY users.user_id ASC;
 
-/*
+/* Q3
 Selects all the attributes needed to display a rig—such as the "Money Rig." 
 The query then joins guitar, rig, and gear data to show the rig setup. 
 It also displays the correct signal chain order for that rig.
@@ -74,7 +74,7 @@ JOIN guitar ON rig.guitar_id  = guitar_id.guitar_id
 WHERE rig.rig_name = 'Money Rig'
 ORDER BY rig_gear.chain_order;
 
-/*
+/* Q4
 Select all users who have one or more public rigs. 
 Use `WHERE` to filter for those marked as `TRUE`. 
 Then, group the results by username. 
@@ -91,7 +91,7 @@ GROUP BY users.user_id
 HAVING COUNT(rig.rig_id) >= 1
 ORDER BY "Public_rigs" DESC ;
 
-/*
+/* Q5
 Generates statistics for gears within the domain. 
 Calculates the average, maximum, and minimum number of gears found on the rigs.
 A subquery is used with a LEFT JOIN to include all rigs, including those that may not have any gear.
@@ -112,7 +112,7 @@ FROM (
     GROUP BY rig.rig_id
 ) AS rig_statistics;
 
-/*
+/* Q6
 Generate statistics on how many rigs are public or private.
 COUNT() counts the number of rigs in each group.
 GROUP BY groups them according to whether they are public or private.
@@ -123,7 +123,7 @@ SELECT
 FROM rig
 GROUP BY rig_is_public;
 
-/*
+/* Q7
 Selects an artist and a song to search for in rigs.
 Retrieves all rigs for a specific artist and song from various users.
 */
@@ -135,7 +135,7 @@ FROM rig
 WHERE artist_name = 'Pink Floyd' 
 AND song_name = 'Money';
 
-/*
+/* Q8
 Updating a user's rig to make it public.
 Uses a subquery to retrieve Kurt's user ID and ensures that only his rig is updated. 
 Uses email instead of name, since that value is unique.
