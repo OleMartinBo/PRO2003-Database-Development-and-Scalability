@@ -73,7 +73,7 @@ VALUES
 --------------------------------------------
 Queries section [Working, no issues] 
 UPDATE and DELETE queries [2/2]
-SELECT queries [2/8]
+SELECT queries [3/8]
 --------------------------------------------
 */
 
@@ -95,7 +95,6 @@ VALUES (DEFAULT,'Test user', 'TestUser@example.com');
 DELETE FROM users
 WHERE email = 'TestUser@example.com';
 
-
 /*
 Selects all artists from the rig table,
 Retrieving only distinct (different) values.
@@ -109,7 +108,6 @@ FROM rig
 GROUP BY artist_name
 ORDER by artist_name DESC;
 
-
 /*
 SELECT all users in the domain and display their biographies. 
 Specify aliases for better column display. 
@@ -121,6 +119,28 @@ SELECT
 FROM users
 JOIN user_profile ON users.user_id = user_profile.user_id
 ORDER BY users.user_id ASC;
+
+/*
+Selects all the attributes needed to display a rig—such as the "Money Rig." 
+The query then joins guitar, rig, and gear data to show the rig setup. 
+It also displays the correct signal chain order for that rig.
+*/
+SELECT
+    rig.rig_name,
+    gear.gear_type,
+    gear.gear_brand,
+    gear.gear_model,
+    guitar.guitar_type,
+    guitar.guitar_brand,
+    guitar.guitar_model,
+    rig_gear.chain_order
+FROM rig_gear
+JOIN rig ON rig_gear.rig_id = rig.rig_id
+JOIN gear ON rig_gear.gear_id = gear.gear_id
+JOIN guitar ON rig.guitar_id  = guitar_id.guitar_id 
+WHERE rig.rig_name = 'Money Rig'
+ORDER BY rig_gear.chain_order;
+
 
 
 
