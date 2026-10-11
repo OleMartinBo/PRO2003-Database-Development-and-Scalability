@@ -57,9 +57,9 @@ PRO2003WorkRequirement1/
 ![delete result](/PRO2003WorkRequirement2/Documents/After%20delete.png)
 
 3. Q1<br>
-   ![delete result](/PRO2003WorkRequirement2/Documents/After%20delete.png)
+   ![Q1](/PRO2003WorkRequirement2/Documents/q1.png)
 4. Q2<br>
-   ![delete result](/PRO2003WorkRequirement2/Documents/After%20delete.png)
+   ![Q2](/PRO2003WorkRequirement2/Documents/q2.png)
 5. Q3<br>
    ![delete result](/PRO2003WorkRequirement2/Documents/After%20delete.png)
 6. Q4<br>

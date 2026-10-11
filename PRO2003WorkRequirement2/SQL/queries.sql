@@ -36,7 +36,7 @@ Sorts them so that the one with the most appears at the top.
 */
 SELECT DISTINCT 
     artist_name AS "Artists",
-    COUNT("artist_name") as "Number of rigs for the artist"
+    COUNT("artist_name") as "NR_Of_Rigs_Per_Artist"
 FROM rig
 GROUP BY artist_name
 ORDER by artist_name DESC;
@@ -70,8 +70,8 @@ SELECT
 FROM rig_gear
 JOIN rig ON rig_gear.rig_id = rig.rig_id
 JOIN gear ON rig_gear.gear_id = gear.gear_id
-JOIN guitar ON rig.guitar_id  = guitar_id.guitar_id 
-WHERE rig.rig_name = 'Money Rig'
+JOIN guitar ON rig.guitar_id  = guitar.guitar_id 
+WHERE rig.rig_name = 'Money rig'
 ORDER BY rig_gear.chain_order;
 
 /* Q4
