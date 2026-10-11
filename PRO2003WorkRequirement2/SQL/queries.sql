@@ -73,7 +73,7 @@ VALUES
 --------------------------------------------
 Queries section [Working, no issues] 
 UPDATE and DELETE queries [2/2]
-SELECT queries [7/8]
+SELECT queries [8/8]
 Aggregate functions[X]
 GROUP BY with HAVING[X]
 Queries using JOIN ON[X]
@@ -207,5 +207,13 @@ WHERE artist_name = 'Pink Floyd'
 AND song_name = 'Money';
 
 /*
-
+Update a user's rig to make it public.
+Use a subquery to select the ID from the user table where the name is 'Kurt'.
 */
+UPDATE rig 
+SET rig_is_public = FALSE
+WHERE rig_name = 'Smells Like Teen Spirit Rig' AND user_id = (
+    SELECT user_id
+    FROM users
+    WHERE email= 'kurt@example.com'
+);
