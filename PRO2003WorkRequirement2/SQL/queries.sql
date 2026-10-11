@@ -73,7 +73,7 @@ VALUES
 --------------------------------------------
 Queries section [Working, no issues] 
 UPDATE and DELETE queries [2/2]
-SELECT queries [1/8]
+SELECT queries [2/8]
 --------------------------------------------
 */
 
@@ -97,11 +97,31 @@ WHERE email = 'TestUser@example.com';
 
 
 /*
-SELECT all from guitar guitar the guitar brand is Gibson
+Selects all artists from the rig table,
+Retrieving only distinct (different) values.
+Counts how many rigs each artist has.
+Sorts them so that the one with the most appears at the top.
 */
-SELECT * 
-FROM guitar
-guitar guitar_brand = 'Gibson';
+SELECT DISTINCT 
+    artist_name AS "Artists",
+    COUNT("artist_name") as "Number of rigs for the artist"
+FROM rig
+GROUP BY artist_name
+ORDER by artist_name DESC;
+
+
+/*
+SELECT all users in the domain and display their biographies. 
+Specify aliases for better column display. 
+Does not show the ID, but sorts user IDs from the first registered to the last.
+*/
+SELECT
+    users.name AS "Profile name",
+    user_profile.bio AS "Bio"
+FROM users
+JOIN user_profile ON users.user_id = user_profile.user_id
+ORDER BY users.user_id ASC;
+
 
 
 
