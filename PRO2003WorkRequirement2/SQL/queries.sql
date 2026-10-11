@@ -73,7 +73,7 @@ VALUES
 --------------------------------------------
 Queries section [Working, no issues] 
 UPDATE and DELETE queries [2/2]
-SELECT queries [5/8]
+SELECT queries [6/8]
 Aggregate functions[X]
 GROUP BY with HAVING[X]
 Queries using JOIN ON[X]
@@ -182,3 +182,21 @@ FROM (
     LEFT JOIN rig_gear ON rig.rig_id = rig_gear.rig_id
     GROUP BY rig.rig_id
 ) AS rig_statistics;
+
+/*
+Generate statistics on how many rigs are public or private.
+COUNT() counts the number of rigs in each group.
+GROUP BY groups them according to whether they are public or private.
+*/
+SELECT
+    rig_is_public AS "IS_RIG_PUBLIC",
+    COUNT(*) AS "NR_OF_RIGS"
+FROM rig
+GROUP BY rig_is_public;
+/*
+
+*/
+
+/*
+
+*/
