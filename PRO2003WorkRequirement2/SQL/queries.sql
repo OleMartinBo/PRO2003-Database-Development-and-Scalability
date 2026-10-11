@@ -73,7 +73,7 @@ VALUES
 --------------------------------------------
 Queries section [Working, no issues] 
 UPDATE and DELETE queries [2/2]
-SELECT queries [6/8]
+SELECT queries [7/8]
 Aggregate functions[X]
 GROUP BY with HAVING[X]
 Queries using JOIN ON[X]
@@ -193,9 +193,18 @@ SELECT
     COUNT(*) AS "NR_OF_RIGS"
 FROM rig
 GROUP BY rig_is_public;
-/*
 
+/*
+Selects an artist and a song to search for in rigs.
+Retrieves all rigs for a specific artist and song from various users.
 */
+SELECT 
+    rig_name,
+    artist_name,
+    song_name
+FROM rig
+WHERE artist_name = 'Pink Floyd' 
+AND song_name = 'Money';
 
 /*
 
