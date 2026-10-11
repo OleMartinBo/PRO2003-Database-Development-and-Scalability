@@ -73,7 +73,11 @@ VALUES
 --------------------------------------------
 Queries section [Working, no issues] 
 UPDATE and DELETE queries [2/2]
-SELECT queries [4/8]
+SELECT queries [5/8]
+Aggregate functions[X]
+GROUP BY with HAVING[X]
+Queries using JOIN ON[X]
+Subquery[X]
 --------------------------------------------
 */
 
@@ -114,7 +118,7 @@ Specify aliases for better column display.
 Does not show the ID, but sorts user IDs from the first registered to the last.
 */
 SELECT
-    users.name AS "Profile name",
+    users.name AS "Profile_name",
     user_profile.bio AS "Bio"
 FROM users
 JOIN user_profile ON users.user_id = user_profile.user_id
@@ -150,25 +154,31 @@ Finally, sort the results to place the user with the highest count at the top.
 */
 SELECT 
     users.name,
-    COUNT(rig.rig_id) as "Public rigs"
+    COUNT(rig.rig_id) AS "Public_rigs"
 FROM users
 JOIN rig ON users.user_id = rig.user_id
 WHERE rig.rig_is_public = TRUE
 GROUP BY users.user_id
 HAVING COUNT(rig.rig_id) >= 1
-ORDER BY "Public rigs" DESC ;
-
-
-/*
-Aggregate functions section
-*/
-
-
+ORDER BY "Public_rigs" DESC ;
 
 /*
-Queries using JOIN ... ON to combine related tables section
+Generates statistics for gears within the domain. 
+Calculates the average, maximum, and minimum number of gears found on the rigs.
+A subquery is used with a LEFT JOIN to include all rigs, including those that may not have any gear.
+The "GROUP BY" clause groups the results by rig, and "Count()" counts the gears on each rig.
+The subquery produces a result set containing a count for each rig.
+Finally, the outer query is used to calculate the average, maximum, and minimum counts.
 */
-
-/*
-At least one subquery section
-*/
+SELECT 
+    AVG(Count_Gear) AS "AVG_GEAR_IN_A_RIG",
+    MAX(Count_Gear) AS "MAX_GEAR_USED",
+    MIN(Count_Gear) AS "MIN_GEAR_USED"
+FROM (
+    SELECT
+        rig.rig_id,
+        COUNT(rig_gear.gear_id) AS Count_Gear
+    FROM rig 
+    LEFT JOIN rig_gear ON rig.rig_id = rig_gear.rig_id
+    GROUP BY rig.rig_id
+) AS rig_statistics;
