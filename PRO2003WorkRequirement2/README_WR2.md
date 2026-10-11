@@ -28,6 +28,7 @@ PRO2003WorkRequirement1/
 |    |__erd.png
 |
 |-SQL/ 
+|    |__inserts.sql
 |    |__tables.sql
 |    |__queries.sql
 |
