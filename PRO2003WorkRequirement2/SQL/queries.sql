@@ -207,11 +207,12 @@ WHERE artist_name = 'Pink Floyd'
 AND song_name = 'Money';
 
 /*
-Update a user's rig to make it public.
-Use a subquery to select the ID from the user table where the name is 'Kurt'.
+Updating a user's rig to make it public.
+Uses a subquery to retrieve Kurt's user ID and ensures that only his rig is updated. 
+Uses email instead of name, since that value is unique.
 */
 UPDATE rig 
-SET rig_is_public = FALSE
+SET rig_is_public = TRUE
 WHERE rig_name = 'Smells Like Teen Spirit Rig' AND user_id = (
     SELECT user_id
     FROM users
