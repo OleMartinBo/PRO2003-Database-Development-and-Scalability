@@ -131,7 +131,13 @@ For authentication I have chosen to create a user that is an analyst that would 
 
 This role has authorization to select data from almost every table, without user_profile. The analysts has no use of the users bio for analysis, therefore no access granted to this table. The analysts does neither need to delete, insert or update tables. The role thereby follows the principle of least privilege, and only have permissions needed for the roles work.
 
+Queries for the users, role and privileges are in the file roleAndPermission.sql.
+##### OBJ 4 Results:
+I was not able to login to test these properly, as i could not found how to do this and i did not see anything in Module 4 for authentication and authorization. However, everything seems to be complete and working when querying the user,roles and their privileges.
 
+![Transaction query select](/PRO2003WorkRequirement3/Documents/privl%20works%20for%20the%20role.png)
+
+![Transaction query select](/PRO2003WorkRequirement3/Documents/role%20and%20username%20works.png)
 ### OBJ 5: Instructions for creating and restoring the database backup
 ```database backup
 
