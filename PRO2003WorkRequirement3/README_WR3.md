@@ -131,14 +131,46 @@ For authentication I have chosen to create a user that is an analyst that would 
 
 This role has authorization to select data from almost every table, without user_profile. The analysts has no use of the users bio for analysis, therefore no access granted to this table. The analysts does neither need to delete, insert or update tables. The role thereby follows the principle of least privilege, and only have permissions needed for the roles work.
 
-Queries for the users, role and privileges are in the file roleAndPermission.sql.
+Queries for the user, role and privileges are in the file roleAndPermission.sql.
 ##### OBJ 4 Results:
-I was not able to login to test these properly, as i could not found how to do this and i did not see anything in Module 4 for authentication and authorization. However, everything seems to be complete and working when querying the user,roles and their privileges.
+I was not able to login to test these properly. I did not find out how to login, and I did not see anything in Module 4 for authentication and authorization about login. However, everything seems to be complete and working when querying the user, role and their privileges.
 
-![Transaction query select](/PRO2003WorkRequirement3/Documents/privl%20works%20for%20the%20role.png)
+![authentication](/PRO2003WorkRequirement3/Documents/role%20and%20username%20works.png)
 
-![Transaction query select](/PRO2003WorkRequirement3/Documents/role%20and%20username%20works.png)
+![authorization](/PRO2003WorkRequirement3/Documents/privl%20works%20for%20the%20role.png)
+
 ### OBJ 5: Instructions for creating and restoring the database backup
+1. Creates a basic backup from the terminal in VS code
 ```database backup
-
+docker exec ONF-Postgres pg_dump -U postgres -d guitarRig -F c -f /tmp/guitarRig_backup.dump
 ```
+2. The backup file is the copied from the container to the computer
+```database backup
+docker cp ONF-Postgres:/tmp/guitarRig_backup.dump .
+```
+3. The backup file is successfully copied from the container to the computer
+   
+![Copy of db](/PRO2003WorkRequirement3/Documents/Copy%20successful.png)
+
+4. The backup is being restored, starting DBViewer with an empty database.
+```database backup
+CREATE DATABASE guitarRig_restored;
+```
+![Copy of db](/PRO2003WorkRequirement3/Documents/NewDB.png)
+
+5. The backup is copied back to the container.
+```database backup
+docker cp guitarRig_backup.dump ONF-Postgres:/tmp/guitarRig_backup.dump
+```
+![Copy of db](/PRO2003WorkRequirement3/Documents/ok%20backup%20copied.png)
+
+6. The backup is copied back to the container.
+```database backup
+docker exec ONF-Postgres pg_restore -U postgres -d guitarRig_restored /tmp/guitarRig_backup.dump
+```
+```database backup
+SELECT *
+FROM users
+```
+![dbs](/PRO2003WorkRequirement3/Documents/seprate%20db.png)
+![back of db success](/PRO2003WorkRequirement3/Documents/backup%20worked.png)

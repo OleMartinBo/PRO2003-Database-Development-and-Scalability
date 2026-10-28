@@ -1,5 +1,5 @@
 /*Creates an user and PASSWORD. 
-NB!: The password should be environment variable and stored securely
+NB!: The password should be an environmental variable and stored securely
 */
 CREATE USER analyst
 WITH PASSWORD '';
