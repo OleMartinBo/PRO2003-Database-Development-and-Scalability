@@ -112,12 +112,19 @@ ON rig (user_id);
 Result for EXPLAIN & EXPLAIN ANALYZE after index query:
 ![EXPLAIN query after](/PRO2003WorkRequirement3/Documents/EXPLAIN%20after.png)
 ![EXPLAIN ANALYZE query after](/PRO2003WorkRequirement3/Documents/EXPLAIN%20ANALYZE%20after.png)
+
 --------------------------------------------------------
 #### Conclusions: 
 The new index did not provide any notable performance improvements. As seen in the results the query plan used a sequential scan, proving that PostgreSQL inspected the rows in the rig table, rather than using the index. This is a most likely a result of the table containing a small amount of data. Therefore making a sequential scan more efficient than the created index. However, this does not mean the query is useless in the future as the database grows, but rather that it does not provide any major benefit at its current state. 
 
 ### OBJ 3: Transactions
+For the transaction I have chosen to insert a new rig and its rig gear. I believe this transaction is meaningful for my guitar database, since the queries belong together and should either succeed or fail as a whole. Although not every rig needs to include gear, it is crucial that any gear is added successfully and in the correct order when a new rig is created.
 
+Result of the transaction, see transaction.sql for the script.<br>
+
+![Transactions query](/PRO2003WorkRequirement3/Documents/transaction%20insert.png)
+
+![Transaction query select](/PRO2003WorkRequirement3/Documents/transaction%20complete.png)
 
 ### OBJ 4: Database role
 
