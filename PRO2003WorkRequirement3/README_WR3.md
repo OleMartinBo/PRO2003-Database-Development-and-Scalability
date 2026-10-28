@@ -127,6 +127,10 @@ Result of the transaction, see transaction.sql for the script.<br>
 ![Transaction query select](/PRO2003WorkRequirement3/Documents/transaction%20complete.png)
 
 ### OBJ 4: Database role
+For authentication I have chosen to create a user that is an analyst that would work with the database. This user will be granted a role called guitar_analyst.  This role is shared role between the analyst in the database with the same access. 
+
+This role has authorization to select data from almost every table, without user_profile. The analysts has no use of the users bio for analysis, therefore no access granted to this table. The analysts does neither need to delete, insert or update tables. The role thereby follows the principle of least privilege, and only have permissions needed for the roles work.
+
 
 ### OBJ 5: Instructions for creating and restoring the database backup
 ```database backup
