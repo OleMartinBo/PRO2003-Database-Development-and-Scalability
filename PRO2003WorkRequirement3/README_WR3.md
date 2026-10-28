@@ -20,7 +20,7 @@ Your solution must include:
   
 The index does not need to improve performance, but you must explain the query plans and whether the index was useful.
 
-## Objectives complete [0/5]
+## Objectives complete [2/5]
 ### OBJ 1: Review of whether the database follows Third Normal Form (3NF)
 
 ##### Part 1: Visual representation of the database for OBJ 1
@@ -117,6 +117,7 @@ Result for EXPLAIN & EXPLAIN ANALYZE after index query:
 The new index did not provide any notable performance improvements. As seen in the results the query plan used a sequential scan, proving that PostgreSQL inspected the rows in the rig table, rather than using the index. This is a most likely a result of the table containing a small amount of data. Therefore making a sequential scan more efficient than the created index. However, this does not mean the query is useless in the future as the database grows, but rather that it does not provide any major benefit at its current state. 
 
 ### OBJ 3: Transactions
+
 
 ### OBJ 4: Database role
 
