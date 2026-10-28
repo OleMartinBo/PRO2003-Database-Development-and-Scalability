@@ -20,7 +20,7 @@ Your solution must include:
   
 The index does not need to improve performance, but you must explain the query plans and whether the index was useful.
 
-## Objectives complete [2/5]
+## Objectives complete [5/5]
 ### OBJ 1: Review of whether the database follows Third Normal Form (3NF)
 
 ##### Part 1: Visual representation of the database for OBJ 1
@@ -55,24 +55,34 @@ TABLE rig_gear:
 :------------:|:-------------:|:-------------:
  1 | 1 |  2 
 
-New suggestion for 3NF (TO BE DONE)<br>
+#### Possible new suggestion for 3NF:
+
 TABLE rig: 
-  rig_id | user_id | guitar_id | rig_name | artist_name | song_name | rig_is_public
-:------------:|:-------------:|:-------------:|:-------------:|:-------------:|:-------------: |:-------------:
- 1 | 1 | 1 | Money Rig | Pink Floyd | Money | [v] 
+  rig_id (PK) | user_id (FK)  | guitar_id (FK)  | song_id (FK) | rig_name | rig_is_public
+:------------:|:-------------:|:-------------:|:-------------:|:-------------:|:-------------:
+ 1 | 1 | 1 | 1 | Money Rig | [v] 
+
+TABLE Artist: 
+  artist_id (PK) | artist_name  
+:------------:|:-------------:
+ 1 | Pink Floyd 
+
+TABLE songs: 
+  song_id | song_name | release_year| artist_id (FK) 
+:------------:|:-------------:|:-------------:|:-------------:
+ 1 | Money | 1973 | 1
 
 --------------------------------------------------------
 ##### Part 2: Does the database follows Third Normal Form (3NF)?
-I conclude that my database follow the Third Normal Form (3NF). Based on the curriculum in Module 4 Normalization, my database should meet the criteria for 3NF. This is becaus there are no clear transitive dependencies in the database, neither is there any non-key columns that depend on other non-key columns.
+I conclude that my database mostly follows the Third Normal Form (3NF). Based on the curriculum in Module 4 Normalization, my database should meet the criteria for 3NF. This is because there are no clear transitive dependencies in the database, neither is there any non-key columns that depend on other non-key columns. I believe that artists and songs could have their own tables as visualized in Part 1. However, I do not really feel it is necessary to separate the tables, as it would not help to much with e.g. redundancy. 
 
 ##### Examples: 
 * 1.The user table only contain attributes that depends on the primary key, such as `name` and a unique constraint on the `email`.
   * The user_profile table do not need the name or email, therefore separating whats mandatory and optional for an user, and rather reference the `user_id`.
 * 2.Both the gear and guitar table only contain attributes that depends on their respective primary key, such as `guitar_id` and `gear_id`.
-* 3.The Rig table only contain attributes that depends on the primary key, however references `guitar_id` and `user_id` through foreign keys. Note: Change to relationship to song and artist instead maybe.
+* 3.The Rig table only contain attributes that depends on the primary key, however references `guitar_id` and `user_id` through foreign keys.
 * 4.The rig_gear table represents the many to many relationship between a rigs and gears. The primary key consist of  `rig_id` and `gear_id`, while the `chain_order` records the position of each gear in the specific rig chain order. The unique constraint on `rig_id` and `chain_order`, keeps track that two gears cant exist in the same position in the same rig.
 
-IMPORT!!: Maybe not 3NF yet, Could maybe have a song table to let songs and artist be separate to rig. 
 
 ### OBJ 2: Index evaluation
 In my database, there are not currently many rows. However, I will evaluate an index using the guitar rig database. Since the database does not currently store a large amount of data, I will consider how indexing would benefit the database as it grows.<br>
@@ -152,7 +162,7 @@ docker cp ONF-Postgres:/tmp/guitarRig_backup.dump .
    
 ![Copy of db](/PRO2003WorkRequirement3/Documents/Copy%20successful.png)
 
-4. The backup is being restored, starting DBViewer with an empty database.
+4. The backup is being restored, starting with DBViewer for an empty database.
 ```database backup
 CREATE DATABASE guitarRig_restored;
 ```
@@ -164,7 +174,7 @@ docker cp guitarRig_backup.dump ONF-Postgres:/tmp/guitarRig_backup.dump
 ```
 ![Copy of db](/PRO2003WorkRequirement3/Documents/ok%20backup%20copied.png)
 
-6. The backup is copied back to the container.
+1. The backup is restored into the new database.
 ```database backup
 docker exec ONF-Postgres pg_restore -U postgres -d guitarRig_restored /tmp/guitarRig_backup.dump
 ```
@@ -173,4 +183,4 @@ SELECT *
 FROM users
 ```
 ![dbs](/PRO2003WorkRequirement3/Documents/seprate%20db.png)
-![back of db success](/PRO2003WorkRequirement3/Documents/backup%20worked.png)
+![backup of db success](/PRO2003WorkRequirement3/Documents/backup%20worked.png)
