@@ -16,5 +16,20 @@ Your solution must include:
 * One index evaluated with EXPLAIN or EXPLAIN ANALYZE before and after it is added
 * One meaningful transaction containing multiple SQL statements
 * At least one limited database role with suitable permissions
-* A database backup restored into a separate database
-* The index does not need to improve performance, but you must explain the query plans and whether the index was useful.
+* A database backup restored into a separate database<br>
+  
+The index does not need to improve performance, but you must explain the query plans and whether the index was useful.
+
+## Objectives complete [0/5]
+### OBJ 1: Review of whether the database follows Third Normal Form (3NF)
+
+### OBJ 2: Index evaluation
+
+### OBJ 3: Transactions
+
+### OBJ 4: Database role
+
+### OBJ 5: Instructions for creating and restoring the database backup
+```database backup
+
+```
