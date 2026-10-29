@@ -25,7 +25,7 @@ The index does not need to improve performance, but you must explain the query p
 
 ##### Part 1: Visual representation of the database for OBJ 1
 
-TABLE user:
+TABLE users:
   user_id | name | email 
 :------------:|:-------------:|:-------------:
  1      |   Ola Nordmann    | OlaNordmann@test.com
@@ -74,21 +74,21 @@ TABLE songs:
 
 --------------------------------------------------------
 ##### Part 2: Does the database follows Third Normal Form (3NF)?
-I conclude that my database mostly follows the Third Normal Form (3NF). Based on the curriculum in Module 4 Normalization, my database should meet the criteria for 3NF. This is because there are no clear transitive dependencies in the database, neither is there any non-key columns that depend on other non-key columns. I believe that artists and songs could have their own tables as visualized in Part 1. However, I do not really feel it is necessary to separate the tables, as it would not help to much with e.g. redundancy. 
+I conclude that my database mostly follows the Third Normal Form (3NF). Based on the curriculum in Module 4 Normalization, my database should meet the criteria for 3NF. This is because there are no clear transitive dependencies in the database, neither is there any non-key columns that depend on other non-key columns. I believe that artists and songs could have their own tables, as illustrated in Part 1. However, I do not think this separation is necessary,as it would not significantly reduce data redundancy. I would appreciate any  feedback on the new suggestions. 
 
 ##### Examples: 
-* 1.The user table only contain attributes that depends on the primary key, such as `name` and a unique constraint on the `email`.
-  * The user_profile table do not need the name or email, therefore separating whats mandatory and optional for an user, and rather reference the `user_id`.
-* 2.Both the gear and guitar table only contain attributes that depends on their respective primary key, such as `guitar_id` and `gear_id`.
-* 3.The Rig table only contain attributes that depends on the primary key, however references `guitar_id` and `user_id` through foreign keys.
-* 4.The rig_gear table represents the many to many relationship between a rigs and gears. The primary key consist of  `rig_id` and `gear_id`, while the `chain_order` records the position of each gear in the specific rig chain order. The unique constraint on `rig_id` and `chain_order`, keeps track that two gears cant exist in the same position in the same rig.
+* 1.The users table only contains attributes that depend on the primary key, such as `name` and  `email`. The `email` column also has a unique constraint.
+  * The user_profile table does not need the name or email, therefore separating what is mandatory and optional profile information for a user, and rather reference the `user_id`.
+* 2.Both the gear and guitar tables contain attributes that depends on their respective primary keys, such as `guitar_id` and `gear_id`.
+* 3.The rig table only contains attributes that depend on its primary key. It also references `guitar_id` and `user_id` through foreign keys.
+* 4.The rig_gear tables represents the many to many relationship between a rig and gears. The primary key consists of  `rig_id` and `gear_id`, while `chain_order` records the position of each gear in the chain order. The unique constraint on `rig_id` and `chain_order` ensures that two gears can't exist in the same position in the same rig.
 
 
 ### OBJ 2: Index evaluation
 In my database, there are not currently many rows. However, I will evaluate an index using the guitar rig database. Since the database does not currently store a large amount of data, I will consider how indexing would benefit the database as it grows.<br>
 
-Two tables I would consider to grow significantly are rig and gear tables. The rig table would grow in rows as users keep creating different rigs and for different songs and artists. The gear table would also grow as more gear types, models, brands, and etc are added to the database. Therefore, I consider these tables relevant candidates for evaluating indexing, since queries on these tables as they grow in data may cause notable delays and become slower. The query on these tables however has to be considered useful, as indexing without a performance improvement or solving a problem adds unnecessary extra work and no real benefit.<br>
-The result below only serves as examples as the database berley has any data. 
+Two tables I would consider to grow significantly are rig and gear tables. The rig table would grow in rows as users keep creating different rigs and for different songs and artists. The gear table would also grow as more gear types, models, and brands are added to the database. Therefore, I consider these tables relevant candidates for evaluating indexing, since queries may become slower as they grow. The query on these tables however has to be considered useful, as indexing without a performance improvement or solving a problem adds unnecessary extra work and no real benefit.<br>
+The result below only serves as examples as the database currently contains very little data. 
 
 <br>
 Result for normal query:
@@ -125,10 +125,10 @@ Result for EXPLAIN & EXPLAIN ANALYZE after index query:
 
 --------------------------------------------------------
 #### Conclusions: 
-The new index did not provide any notable performance improvements. As seen in the results the query plan used a sequential scan, proving that PostgreSQL inspected the rows in the rig table, rather than using the index. This is a most likely a result of the table containing a small amount of data. Therefore making a sequential scan more efficient than the created index. However, this does not mean the query is useless in the future as the database grows, but rather that it does not provide any major benefit at its current state. 
+The new index did not provide any notable performance improvements. As seen in the results, the query plan used a sequential scan, proving that PostgreSQL inspected the rows in the rig table, rather than using the index. This is most likely a result of the table containing a small amount of data. Therefore making a sequential scan more efficient than the created index. However, this does not mean the index is useless in the future as the database grows, but rather that it does not provide any major benefit at its current state. 
 
 ### OBJ 3: Transactions
-For the transaction I have chosen to insert a new rig and its rig gear. I believe this transaction is meaningful for my guitar database, since the queries belong together and should either succeed or fail as a whole. Although not every rig needs to include gear, it is crucial that any gear is added successfully and in the correct order when a new rig is created.
+For the transaction I have chosen to insert a new rig and with the gear. I believe this transaction is meaningful for my guitar database, since the queries belong together and should either succeed or fail as a whole. Although not every rig needs to include gear, it is crucial that any gear is added successfully and in the correct order when a new rig is created.
 
 Result of the transaction, see transaction.sql for the script.<br>
 
@@ -137,32 +137,33 @@ Result of the transaction, see transaction.sql for the script.<br>
 ![Transaction query select](/PRO2003WorkRequirement3/Documents/transaction%20complete.png)
 
 ### OBJ 4: Database role
-For authentication I have chosen to create a user that is an analyst that would work with the database. This user will be granted a role called guitar_analyst.  This role is shared role between the analyst in the database with the same access. 
+For authentication I have chosen to create a database user named analyst, who would work with the database. This user will be granted a role called guitar_analyst. The role can be shared role across analysts who require the same access in the database. 
 
-This role has authorization to select data from almost every table, without user_profile. The analysts has no use of the users bio for analysis, therefore no access granted to this table. The analysts does neither need to delete, insert or update tables. The role thereby follows the principle of least privilege, and only have permissions needed for the roles work.
+This role has authorization to select data from almost every table, without user_profile. The analysts have no use of the users bio for analysis, so the role is not granted access to this table. The analysts do not need to delete, insert or update tables. The role thereby follows the principle of least privilege and only has permissions needed for the roles work.
 
 Queries for the user, role and privileges are in the file roleAndPermission.sql.
+
 ##### OBJ 4 Results:
-I was not able to login to test these properly. I did not find out how to login, and I did not see anything in Module 4 for authentication and authorization about login. However, everything seems to be complete and working when querying the user, role and their privileges.
+I was not able to log in to test the new user and role permissions. I did not find instruction on how to log in, and I did not find anything in Module 4: authentication and authorization about log in. However, testing the role, user, privileges with queries proved that the user, role and privileges existed. These seems to be complete and working.
 
 ![authentication](/PRO2003WorkRequirement3/Documents/role%20and%20username%20works.png)
 
 ![authorization](/PRO2003WorkRequirement3/Documents/privl%20works%20for%20the%20role.png)
 
 ### OBJ 5: Instructions for creating and restoring the database backup
-1. Creates a basic backup from the terminal in VS code
+1. Creates a basic database backup from the VS Code terminal.
 ```database backup
 docker exec ONF-Postgres pg_dump -U postgres -d guitarRig -F c -f /tmp/guitarRig_backup.dump
 ```
-2. The backup file is the copied from the container to the computer
+2. The backup file is copied from the container to the computer
 ```database backup
 docker cp ONF-Postgres:/tmp/guitarRig_backup.dump .
 ```
-3. The backup file is successfully copied from the container to the computer
+3. The backup file was successfully copied from the container to the computer
    
 ![Copy of db](/PRO2003WorkRequirement3/Documents/Copy%20successful.png)
 
-4. The backup is being restored, starting with DBViewer for an empty database.
+4. The backup process for restoring starts by creating a empty database in DBViewer.
 ```database backup
 CREATE DATABASE guitarRig_restored;
 ```
@@ -174,7 +175,7 @@ docker cp guitarRig_backup.dump ONF-Postgres:/tmp/guitarRig_backup.dump
 ```
 ![Copy of db](/PRO2003WorkRequirement3/Documents/ok%20backup%20copied.png)
 
-1. The backup is restored into the new database.
+6. The backup is restored into the new database.
 ```database backup
 docker exec ONF-Postgres pg_restore -U postgres -d guitarRig_restored /tmp/guitarRig_backup.dump
 ```
