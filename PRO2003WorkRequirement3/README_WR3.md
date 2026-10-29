@@ -98,7 +98,7 @@ SELECT *
 FROM rig
 WHERE user_id = 1;
 ```
-![SELECT query](/PRO2003WorkRequirement3/Documents/SELECT.png)
+![SELECT query](/PRO2003WorkRequirement3/Documents/SELECT.png)<br>
 --------------------------------------------------------
 Result for EXPLAIN and EXPLAIN ANALYZE query:
 ```database before index
@@ -108,20 +108,20 @@ SELECT *
 FROM rig
 WHERE user_id = 1;
 ```
-![EXPLAIN query](/PRO2003WorkRequirement3/Documents/EXPLAIN.png)
+![EXPLAIN query](/PRO2003WorkRequirement3/Documents/EXPLAIN.png)<br>
 
-![EXPLAIN ANALYZE query](/PRO2003WorkRequirement3/Documents/EXPLAIN%20ANALYZE.png)
+![EXPLAIN ANALYZE query](/PRO2003WorkRequirement3/Documents/EXPLAIN%20ANALYZE.png)<br>
 --------------------------------------------------------
 Result for index query:
 ```Database index
 CREATE INDEX idx_rig_user_id
 ON rig (user_id);
 ```
-![Database index](/PRO2003WorkRequirement3/Documents/index.png)
+![Database index](/PRO2003WorkRequirement3/Documents/index.png)<br>
 --------------------------------------------------------
 Result for EXPLAIN & EXPLAIN ANALYZE after index query:
-![EXPLAIN query after](/PRO2003WorkRequirement3/Documents/EXPLAIN%20after.png)
-![EXPLAIN ANALYZE query after](/PRO2003WorkRequirement3/Documents/EXPLAIN%20ANALYZE%20after.png)
+![EXPLAIN query after](/PRO2003WorkRequirement3/Documents/EXPLAIN%20after.png)<br>
+![EXPLAIN ANALYZE query after](/PRO2003WorkRequirement3/Documents/EXPLAIN%20ANALYZE%20after.png)<br>
 
 --------------------------------------------------------
 #### Conclusions: 
@@ -132,9 +132,9 @@ For the transaction I have chosen to insert a new rig and with the gear. I belie
 
 Result of the transaction, see transaction.sql for the script.<br>
 
-![Transactions query](/PRO2003WorkRequirement3/Documents/transaction%20insert.png)
+![Transactions query](/PRO2003WorkRequirement3/Documents/transaction%20insert.png)<br>
 
-![Transaction query select](/PRO2003WorkRequirement3/Documents/transaction%20complete.png)
+![Transaction query select](/PRO2003WorkRequirement3/Documents/transaction%20complete.png)<br>
 
 ### OBJ 4: Database role
 For authentication I have chosen to create a database user named analyst, who would work with the database. This user will be granted a role called guitar_analyst. The role can be shared role across analysts who require the same access in the database. 
@@ -146,9 +146,9 @@ Queries for the user, role and privileges are in the file roleAndPermission.sql.
 ##### OBJ 4 Results:
 I was not able to log in to test the new user and role permissions. I did not find instruction on how to log in, and I did not find anything in Module 4: authentication and authorization about log in. However, testing the role, user, privileges with queries proved that the user, role and privileges existed. These seems to be complete and working.
 
-![authentication](/PRO2003WorkRequirement3/Documents/role%20and%20username%20works.png)
+![authentication](/PRO2003WorkRequirement3/Documents/role%20and%20username%20works.png)<br>
 
-![authorization](/PRO2003WorkRequirement3/Documents/privl%20works%20for%20the%20role.png)
+![authorization](/PRO2003WorkRequirement3/Documents/privl%20works%20for%20the%20role.png)<br>
 
 ### OBJ 5: Instructions for creating and restoring the database backup
 1. Creates a basic database backup from the VS Code terminal.
@@ -161,19 +161,19 @@ docker cp ONF-Postgres:/tmp/guitarRig_backup.dump .
 ```
 3. The backup file was successfully copied from the container to the computer
    
-![Copy of db](/PRO2003WorkRequirement3/Documents/Copy%20successful.png)
+![Copy of db](/PRO2003WorkRequirement3/Documents/Copy%20successful.png)<br>
 
 4. The backup process for restoring starts by creating a empty database in DBViewer.
 ```database backup
 CREATE DATABASE guitarRig_restored;
 ```
-![Copy of db](/PRO2003WorkRequirement3/Documents/NewDB.png)
+![Copy of db](/PRO2003WorkRequirement3/Documents/NewDB.png)<br>
 
 5. The backup is copied back to the container.
 ```database backup
 docker cp guitarRig_backup.dump ONF-Postgres:/tmp/guitarRig_backup.dump
 ```
-![Copy of db](/PRO2003WorkRequirement3/Documents/ok%20backup%20copied.png)
+![Copy of db](/PRO2003WorkRequirement3/Documents/ok%20backup%20copied.png)<br>
 
 6. The backup is restored into the new database.
 ```database backup
@@ -183,5 +183,5 @@ docker exec ONF-Postgres pg_restore -U postgres -d guitarRig_restored /tmp/guita
 SELECT *
 FROM users
 ```
-![dbs](/PRO2003WorkRequirement3/Documents/seprate%20db.png)
-![backup of db success](/PRO2003WorkRequirement3/Documents/backup%20worked.png)
+![dbs](/PRO2003WorkRequirement3/Documents/seprate%20db.png)<br>
+![backup of db success](/PRO2003WorkRequirement3/Documents/backup%20worked.png)<br>
